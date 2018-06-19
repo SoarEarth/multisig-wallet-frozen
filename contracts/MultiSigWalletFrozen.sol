@@ -6,17 +6,17 @@ import "./gnosis/MultiSigWallet.sol";
  
 contract MultiSigWalletFrozen is MultiSigWallet {
 
-    uint256 public lockTime;
+    uint256 public releaseTime;
 
-    constructor(address[] _owners, uint _required, uint _lockTime) 
+    constructor(address[] _owners, uint _required, uint _releaseTime) 
     public 
     MultiSigWallet(_owners, _required)
     {
-        lockTime = _lockTime;
+        releaseTime = _releaseTime;
     }
 
     /// overriding MultiSigWallet#submitTransaction
-    /// - To frozen until lockTime.
+    /// - To frozen until releaseTime.
     ///
     /// @dev Allows an owner to submit and confirm a transaction.
     /// @param destination Transaction target address.
@@ -27,8 +27,8 @@ contract MultiSigWalletFrozen is MultiSigWallet {
     public
     returns (uint transactionId)
     {
-        require(block.timestamp >= lockTime);
-
+        // solium-disable-next-line security/no-block-members
+        require(block.timestamp >= releaseTime);
         return super.submitTransaction(destination, value, data);
     }
     

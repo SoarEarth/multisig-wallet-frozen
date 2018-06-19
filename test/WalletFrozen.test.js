@@ -1,5 +1,5 @@
-const MultiSigWalletFrozen = artifacts.require("MultiSigWalletFrozen");
-
+const WalletFrozen = artifacts.require("WalletFrozen");
+const SkymapTokenMock = artifacts.require("SkymapTokenMock");
 const BigNumber = web3.BigNumber;
 
 const should = require('chai')
@@ -14,16 +14,15 @@ const min = Math.round(now + 60);
 const mins10 = Math.round(now + (60 * 10));
 const hour = Math.round(now + (60 * 60));
 
-contract('MultiSigWalletFrozen', function ([owner, user1, user2, user3]) {
+contract('WalletFrozen', function ([owner, user1, user2, user3]) {
 
   beforeEach(async function () {
+      this.token = SkymapTokenMock.new(owner);
   });
 
-  it("..multisig with thawingTime now is working from start", async function () {
-    let wallet = await MultiSigWalletFrozen.new([owner, user1, user2], 2, now);
-    let actualOwners = await wallet.getOwners();
-    console.log(actualOwners)
-
+  it("..wallet is init correctly", async function () {
+    // let wallet = await WalletFrozen.new(this.token, user1, min);
+    // console.log(wallet);
   });
 
 
