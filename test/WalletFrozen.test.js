@@ -17,7 +17,7 @@ contract('WalletFrozen', function ([owner, beneficier, _]) {
     let timestamp = time.latestTime();
     const lock = timestamp + time.duration.years(1); //1 year lock
     this.token = await SkymapTokenMock.new(owner);
-    this.wallet = await WalletFrozen.new(this.token.address, beneficier, lock)
+    this.wallet = await WalletFrozen.new(this.token.address, beneficier, lock);
   });
 
   it("..wallet can receive token", async function () {
