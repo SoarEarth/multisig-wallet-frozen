@@ -1,15 +1,19 @@
 var MultiSigWalletFrozen = artifacts.require("./MultiSigWalletFrozen.sol");
 var fs = require('fs');
 
-const now = Math.round(Date.now() / 1000);
-const teamLock = now;
-const reserveLock1 = now;
-const reserveLock2 = now;
-const communityLock1 = now;
-const communityLock2 = now;
-const communityLock3 = now;
-const partnershipsLock = now;
-const presaleBonusLock = now;
+const yearInSeconds = 31556952;
+const dayInSeconds = 86400;
+// TODO update this value when we know the final data
+const publicSaleEnd = Math.round(Date.now() / 1000); 
+
+const teamLock = publicSaleEnd + yearInSeconds; //1 year lock
+const reserveLock1 = publicSaleEnd + yearInSeconds; //1 year lock
+const reserveLock2 = publicSaleEnd + (2 * yearInSeconds); //2 years lock
+const communityLock1 = publicSaleEnd + yearInSeconds; //1 year lock
+const communityLock2 = publicSaleEnd + (2 * yearInSeconds); //2 years lock
+const communityLock3 = publicSaleEnd + (3 * yearInSeconds); //3 years lock
+const partnershipsLock = publicSaleEnd + (60 * dayInSeconds); //60 dayes lock
+const presaleBonusLock = publicSaleEnd + (60 * dayInSeconds); //60 dayes lock
 
 const owner1 = web3.eth.accounts[0];
 const owner2 = web3.eth.accounts[1];
